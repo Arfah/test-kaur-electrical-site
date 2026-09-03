@@ -598,6 +598,14 @@ body.menu-open { overflow: hidden; }
     position: absolute;
     inset: 0;
     aspect-ratio: auto;
+    overflow: hidden;
+  }
+  /* taller than its frame so the parallax never shows an edge */
+  .hero__media img {
+    position: absolute;
+    top: -12%;
+    left: 0;
+    height: 124%;
   }
   .hero__panel {
     position: relative;
@@ -615,24 +623,49 @@ body.menu-open { overflow: hidden; }
   }
 }
 
-/* Hero reveal: the single orchestrated moment */
+/* Hero opening sequence: panel wipes in, photo settles, content rises,
+   the trace draws itself. */
+.hero__panel {
+  animation: wipe-in 720ms var(--ease) both;
+}
+.hero__media img {
+  animation: settle 1800ms var(--ease) backwards;
+  will-change: transform;
+}
 .hero .reveal {
   opacity: 0;
-  transform: translateY(14px);
-  animation: rise var(--dur) var(--ease) forwards;
+  transform: translateY(18px);
+  animation: rise 640ms var(--ease) forwards;
+  animation-delay: 320ms;
 }
-.hero .reveal:nth-child(3) { animation-delay: 80ms; }
-.hero .reveal:nth-child(4) { animation-delay: 160ms; }
-.hero .reveal:nth-child(5) { animation-delay: 240ms; }
-.hero .reveal:nth-child(6) { animation-delay: 320ms; }
+.hero .reveal:nth-child(3) { animation-delay: 420ms; }
+.hero .reveal:nth-child(4) { animation-delay: 520ms; }
+.hero .reveal:nth-child(5) { animation-delay: 620ms; }
+.hero .reveal:nth-child(6) { animation-delay: 720ms; }
 .hero__trace {
   transform-origin: left center;
-  animation: draw 700ms var(--ease) 200ms both;
+  animation: draw 700ms var(--ease) 600ms both;
+}
+.hero__content::before {
+  transform-origin: top center;
+  animation: draw-down 900ms var(--ease) 1100ms both;
 }
 @keyframes rise { to { opacity: 1; transform: none; } }
+@keyframes wipe-in {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+@keyframes settle {
+  from { transform: scale(1.1); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
 @keyframes draw {
   from { clip-path: inset(0 100% 0 0); }
   to { clip-path: inset(0 0 0 0); }
+}
+@keyframes draw-down {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
 }
 
 /* ---------- Trust strip (directly under the hero) ---------- */
@@ -1160,6 +1193,125 @@ body.menu-open { overflow: hidden; }
 }
 .contact__phone { padding: 0.5rem 0; }
 
+/* =====================================================================
+   Scroll motion. Everything below is gated on html.js so nothing is
+   hidden without JavaScript, and switched off under reduced motion.
+   ===================================================================== */
+
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 900ms var(--ease), transform 900ms var(--ease);
+  transition-delay: var(--d, 0ms);
+  will-change: opacity, transform;
+}
+html.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+html.js [data-reveal="left"] { transform: translateX(-32px); }
+
+/* photos wipe in from the left and settle from a slight zoom.
+   The clip sits on the inner image, not the observed element, so the
+   IntersectionObserver still sees the figure. */
+html.js [data-reveal="mask"],
+html.js [data-reveal="mask-right"] {
+  opacity: 1;
+  transform: none;
+}
+html.js [data-reveal="mask"] > img,
+html.js [data-reveal="mask-right"] > .map {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1100ms var(--ease) var(--d, 0ms), transform 1600ms var(--ease) var(--d, 0ms);
+}
+html.js [data-reveal="mask-right"] > .map { clip-path: inset(0 0 0 100%); }
+html.js [data-reveal="mask"] > img { transform: scale(1.08); }
+html.js [data-reveal="mask"].is-in > img,
+html.js [data-reveal="mask-right"].is-in > .map { clip-path: inset(0 0 0 0); transform: none; }
+html.js [data-reveal="mask"] figcaption {
+  opacity: 0;
+  transition: opacity 600ms var(--ease) calc(var(--d, 0ms) + 700ms);
+}
+html.js [data-reveal="mask"].is-in figcaption { opacity: 1; }
+
+/* the trace draws itself as each section arrives */
+html.js .trace::before {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 600ms var(--ease) 80ms;
+}
+html.js .trace::after {
+  transform: scaleY(0);
+  transform-origin: top center;
+  transition: transform 1400ms var(--ease) 520ms;
+}
+html.js .trace.is-in::before,
+html.js .trace.is-in::after { transform: none; }
+html.js .trace .trace__head::before {
+  transform: translateY(-50%) scale(0);
+  transition: transform 320ms var(--ease) 560ms;
+}
+html.js .trace.is-in .trace__head::before { transform: translateY(-50%) scale(1); }
+
+/* service rows: the rule extends from the trace, then the row rises */
+html.js .service-list > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1px;
+  height: 1px;
+  background: var(--c-copper);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 800ms var(--ease) var(--d, 0ms);
+}
+html.js .service-list > li.is-in::before { transform: scaleX(1); }
+
+/* trust strip rules grow in */
+html.js .trust__item {
+  transition: opacity 900ms var(--ease) var(--d, 0ms), transform 900ms var(--ease) var(--d, 0ms);
+}
+
+/* mobile menu links stagger in */
+.mobile-menu.is-open li {
+  animation: rise 420ms var(--ease) both;
+}
+.mobile-menu.is-open li:nth-child(1) { animation-delay: 60ms; }
+.mobile-menu.is-open li:nth-child(2) { animation-delay: 120ms; }
+.mobile-menu.is-open li:nth-child(3) { animation-delay: 180ms; }
+.mobile-menu.is-open li:nth-child(4) { animation-delay: 240ms; }
+.mobile-menu.is-open li:nth-child(5) { animation-delay: 300ms; }
+.mobile-menu li { opacity: 0; transform: translateY(18px); }
+.mobile-menu.is-open li { opacity: 1; transform: none; }
+
+/* header lifts once the page has scrolled */
+.site-header {
+  transition: box-shadow 300ms var(--ease);
+}
+.site-header.is-scrolled {
+  box-shadow: 0 8px 28px rgba(29, 34, 32, 0.10);
+}
+
+/* hover states */
+.btn { transition: background-color 180ms var(--ease), transform 220ms var(--ease), box-shadow 220ms var(--ease); }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(124, 58, 20, 0.22); }
+.btn:active { transform: translateY(0); box-shadow: none; }
+
+.work-item { overflow: hidden; }
+.work-item img { transition: transform 700ms var(--ease); }
+.work-item:hover img { transform: scale(1.04); }
+
+.service h3 { transition: transform 300ms var(--ease), color 300ms var(--ease); }
+.service-list > li:hover h3 { transform: translateX(8px); color: var(--c-copper); }
+.service__num { transition: color 300ms var(--ease); }
+.service-list > li:hover .service__num { color: var(--c-copper-deep); }
+
+.contact__phone { transition: color 200ms var(--ease), transform 300ms var(--ease); }
+.contact__phone:hover { transform: translateX(6px); }
+
+.nav-links a { position: relative; }
+
 /* ---------- Motion preferences ---------- */
 
 @media (prefers-reduced-motion: reduce) {
@@ -1170,5 +1322,22 @@ body.menu-open { overflow: hidden; }
     transition-duration: 0.001ms !important;
   }
   .hero .reveal { opacity: 1; transform: none; animation: none; }
-  .hero__trace { animation: none; clip-path: none; }
+  .hero__trace, .hero__panel, .hero__media img, .hero__content::before { animation: none; clip-path: none; transform: none; opacity: 1; }
+  html.js [data-reveal],
+  html.js [data-reveal] > img,
+  html.js [data-reveal] > .map,
+  html.js [data-reveal] figcaption,
+  html.js .trace::before,
+  html.js .trace::after,
+  html.js .trace .trace__head::before,
+  html.js .service-list > li::before {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+    transition: none;
+  }
+  html.js .trace .trace__head::before { transform: translateY(-50%); }
+  html.js .service-list > li::before { transform: scaleX(1); }
+  .mobile-menu li { opacity: 1; transform: none; animation: none; }
+  .btn:hover, .service-list > li:hover h3, .contact__phone:hover, .work-item:hover img { transform: none; }
 }

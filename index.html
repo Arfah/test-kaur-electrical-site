@@ -154,13 +154,13 @@
   <!-- ============ TRUST STRIP ============ -->
   <section class="trust" aria-label="Ratings and accreditations">
     <div class="container">
-      <ul class="trust__list">
+      <ul class="trust__list" data-stagger="120">
         <li class="trust__item">
-          <span class="trust__value"><span class="star" aria-hidden="true">★</span> 5.0 rating</span>
-          <span class="trust__label">43 Google reviews</span>
+          <span class="trust__value"><span class="star" aria-hidden="true">★</span> <span data-count="5.0">5.0</span> rating</span>
+          <span class="trust__label"><span data-count="43">43</span> Google reviews</span>
         </li>
         <li class="trust__item">
-          <span class="trust__value">11 years</span>
+          <span class="trust__value"><span data-count="11">11</span> years</span>
           <span class="trust__label">In business, east Berkshire</span>
         </li>
         <li class="trust__item">
@@ -168,7 +168,7 @@
           <span class="trust__label">Approved Contractor, Part P registered</span>
         </li>
         <li class="trust__item">
-          <span class="trust__value">£2m</span>
+          <span class="trust__value">£<span data-count="2">2</span>m</span>
           <span class="trust__label">Public liability insurance</span>
         </li>
       </ul>
@@ -178,13 +178,13 @@
   <!-- ============ SERVICES ============ -->
   <section class="section trace" id="services" aria-labelledby="services-heading">
     <div class="container">
-      <div class="trace__head services__intro">
+      <div class="trace__head services__intro" data-reveal>
         <p class="eyebrow">01 &nbsp;Services</p>
         <h2 id="services-heading">What I do, and what it costs</h2>
         <p class="lede">Fixed prices where the job allows it. Everything else is quoted in writing after a visit, and the quote is what you pay unless we agree a change first.</p>
       </div>
 
-      <ol class="service-list">
+      <ol class="service-list" data-stagger="90">
         <li>
           <article class="service">
             <span class="service__num">01</span>
@@ -267,7 +267,7 @@
         </li>
       </ol>
 
-      <div class="cta-row">
+      <div class="cta-row" data-reveal>
         <a class="btn" href="tel:01628570118">Call 01628 570 118</a>
         <p>Not sure which service you need? Describe the problem and I'll tell you what it is likely to involve before anything is booked.</p>
       </div>
@@ -277,19 +277,19 @@
   <!-- ============ REVIEWS (full-bleed band) ============ -->
   <section class="section reviews trace trace--dark" id="reviews" aria-labelledby="reviews-heading">
     <div class="container">
-      <div class="trace__head reviews__head">
+      <div class="trace__head reviews__head" data-reveal>
         <p class="eyebrow">02 &nbsp;Reviews</p>
         <h2 id="reviews-heading">What customers say</h2>
-        <p class="reviews__score"><strong>5.0 out of 5</strong> <span>from 43 Google reviews</span></p>
+        <p class="reviews__score"><strong><span data-count="5.0">5.0</span> out of 5</strong> <span>from 43 Google reviews</span></p>
       </div>
 
       <div class="quotes">
-        <blockquote class="quote quote--lead">
+        <blockquote class="quote quote--lead" data-reveal>
           <p>Called at 8pm when half the house lost power. She talked me through the consumer unit on the phone, then came out first thing.</p>
           <footer>Musa I.</footer>
         </blockquote>
 
-        <div class="quotes__aside">
+        <div class="quotes__aside" data-stagger="160" data-stagger-offset="300">
           <blockquote class="quote">
             <p>Simran talked me through the EICR findings without any of the usual scaremongering. Booked the remedial work on the spot.</p>
             <footer>Tom H.</footer>
@@ -306,25 +306,25 @@
   <!-- ============ WORK ============ -->
   <section class="section trace" id="work" aria-labelledby="work-heading">
     <div class="container">
-      <div class="trace__head work__head">
+      <div class="trace__head work__head" data-reveal>
         <p class="eyebrow">03 &nbsp;Recent work</p>
         <h2 id="work-heading">Jobs across east Berkshire</h2>
       </div>
 
       <div class="work-grid">
-        <figure class="work-item work-item--a">
+        <figure class="work-item work-item--a" data-reveal="mask">
           <img src="images/ev-charger-driveway.jpg" width="599" height="333" loading="lazy" alt="Electric car charging from a wall-mounted EV charger on a driveway, installed by Kaur Electrical in Windsor">
           <figcaption><b>EV charger</b> Driveway install, Windsor</figcaption>
         </figure>
-        <figure class="work-item work-item--b">
+        <figure class="work-item work-item--b" data-reveal="mask">
           <img src="images/kitchen-downlights.jpg" width="547" height="365" loading="lazy" alt="Kitchen with recessed LED downlights and under-cabinet lighting, wired by Kaur Electrical in Cookham">
           <figcaption><b>Lighting</b> Kitchen downlights, Cookham</figcaption>
         </figure>
-        <figure class="work-item work-item--c">
+        <figure class="work-item work-item--c" data-reveal="mask">
           <img src="images/testing-equipment.jpg" width="700" height="438" loading="lazy" alt="Multimeter and test leads used for electrical testing and certification">
           <figcaption><b>Testing</b> Every job certified before sign-off</figcaption>
         </figure>
-        <figure class="work-item work-item--d">
+        <figure class="work-item work-item--d" data-reveal="mask">
           <img src="images/van-signage.jpg" width="638" height="480" loading="lazy" alt="Work van parked outside a customer's home during an electrical job in Bray">
           <figcaption><b>On site</b> Bray</figcaption>
         </figure>
@@ -335,20 +335,20 @@
   <!-- ============ ABOUT ============ -->
   <section class="section trace" id="about" aria-labelledby="about-heading">
     <div class="container">
-      <div class="trace__head">
+      <div class="trace__head" data-reveal>
         <p class="eyebrow">04 &nbsp;About</p>
         <h2 id="about-heading">One electrician, start to finish</h2>
       </div>
 
       <div class="about__grid">
         <div class="about__side">
-          <figure>
+          <figure data-reveal="mask">
             <img src="images/simran-working-loft.jpg" width="679" height="450" loading="lazy" alt="Measuring up in a loft during first-fix work on a rewire in Twyford">
             <figcaption>First-fix in a loft, Twyford.</figcaption>
           </figure>
         </div>
 
-        <div class="about__blocks">
+        <div class="about__blocks" data-stagger="140">
           <div class="about__block">
             <h3>Who you're dealing with</h3>
             <p>I'm Simran Kaur. I've run Kaur Electrical for 11 years, working from Maidenhead across east Berkshire. I'm a sole trader, so the person who quotes the job is the person who turns up, does the work and signs the certificate.</p>
@@ -394,7 +394,7 @@
   <section class="section trace" id="contact" aria-labelledby="contact-heading">
     <div class="container">
       <div class="contact__grid">
-        <div class="contact__details">
+        <div class="contact__details" data-reveal>
           <div class="trace__head">
             <p class="eyebrow">05 &nbsp;Contact</p>
             <h2 id="contact-heading">Get in touch</h2>
@@ -429,7 +429,7 @@
           </dl>
         </div>
 
-        <div class="contact__map">
+        <div class="contact__map" data-reveal="mask-right">
           <div class="map">
             <iframe
               src="https://www.google.com/maps?q=Maidenhead,+Berkshire,+UK&z=11&output=embed"
@@ -447,8 +447,8 @@
   <!-- ============ CLOSING CTA ============ -->
   <section class="closing" aria-labelledby="closing-heading">
     <div class="container">
-      <h2 id="closing-heading">Ready to book, or need someone today?</h2>
-      <div class="cta-row">
+      <h2 id="closing-heading" data-reveal>Ready to book, or need someone today?</h2>
+      <div class="cta-row" data-reveal style="--d: 150ms">
         <a class="btn" href="tel:01628570118">Call 01628 570 118</a>
         <p>Mon to Fri 8am to 5.30pm, Sat 9am to 1pm. Emergency callouts outside hours.</p>
       </div>
